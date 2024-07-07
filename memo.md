@@ -57,11 +57,34 @@ dir/
 - git mv<旧ファイル> <新ファイル>：ファイルの移動、ファイル名の変更(ステージに記録されるのでコミットが必要)
 
 ## 3. GitHubコマンド一覧
-#### 新規追加
-- git remote add origin <URL>：GitHubを新規追加(URLを登録することにより毎回GitHubにプッシュするときにURLを打ち込む必要がなくなる、originに登録される)
+#### リモートリポジトリの新規追加
+- git remote add <リモート名> <リモートURL>：GitHubを新規追加(URLを登録することにより毎回GitHubにプッシュするときにURLを打ち込む必要がなくなる、originに登録される)
 - git push <リモート名> <ブランチ名>：GitHubへ送信
   - Ex：git push origin masterなど
 -  git push -u origin master：最初にやっておくと後でgit pushだけでよくなる
+
+#### リモートリポジトリの情報表示
+```
+$ git remote：リモートリポジトリを表示
+$ git remote -v：URLを表示
+```
+
+#### リモートリポジトリから取得
+```
+# fetch編
+## リモートブランチというローカルリポジトリに反映させるだけでローカルワークツリーには影響を与えない
+$ git fetch <リモート名>
+$ git branch -a：作成されたブランチを確認
+$ git checkout <ブランチ名>：ブランチの切り替え
+# 取り込み先にブランチを切り替えてマージする
+$ git merge origin/master
+
+# pull編
+## リモートから情報を取得してマージまでを一度にやりたい場合
+$ git pull <リモート名> <ブランチ名>
+# リモート名、ブランチ名は省略可能
+# git fetchとgit mergeコマンドを効果は同じ
+```
 
 #### 変更取り消し
 ```
