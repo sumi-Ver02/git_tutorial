@@ -6,7 +6,7 @@
 
 ## 1. 設定変更
 #### 初期設定
-```
+```bash
 $ git config --global user.name "ユーザー名"
 $ git config --global user.email "メールアドレス"
 
@@ -15,7 +15,7 @@ $ git config user.name
 $ git config user.email
 ```
 #### コマンドにエイリアスを付ける
-```
+```bash
 $ git config --global alias.ci commit
 $ git config --global alias.st status
 $ git config --global alias.br branch
@@ -23,8 +23,8 @@ $ git config --global alias.co checkout
 ```
 
 #### バージョン管理しないファイル
-```
-- .gitignoreファイルを作成
+```bash
+# .gitignoreファイルを作成
 
 # 書き方
 
@@ -64,13 +64,24 @@ dir/
 -  git push -u origin master：最初にやっておくと後でgit pushだけでよくなる
 
 #### リモートリポジトリの情報表示
-```
+```bash
 $ git remote：リモートリポジトリを表示
 $ git remote -v：URLを表示
+
+# 詳細情報を表示
+$ git remote show <リモート名>
+```
+
+#### リモートリポジトリの変更・削除
+```bash
+# リモートリポジトリ名変更
+$ git remote rename <旧リモート名> <新リモート名>
+# リモートリポジトリ削除
+$ git remote rm <リモート名>
 ```
 
 #### リモートリポジトリから取得
-```
+```bash
 # fetch編
 ## リモートブランチというローカルリポジトリに反映させるだけでローカルワークツリーには影響を与えない
 $ git fetch <リモート名>
@@ -84,10 +95,11 @@ $ git merge origin/master
 $ git pull <リモート名> <ブランチ名>
 # リモート名、ブランチ名は省略可能
 # git fetchとgit mergeコマンドを効果は同じ
+# pullは現在のブランチに取り込んだ内容がマージされるため危険。慣れないうちはfetchを使用することが推奨。
 ```
 
 #### 変更取り消し
-```
+```bash
 $ git checkout -- <ファイル名> or <ディレクトリ名>
 # 全変更取り消し
 $ git checkout -- .
@@ -95,7 +107,7 @@ $ git checkout -- .
 
 #### ステージ追加を取り消し
 ※ステージからの取り消しのみでワークツリーには変更を加えない
-```
+```bash
 $ git reset HEAD <ファイル名> or <ディレクトリ名>
 # 全取り消し
 $ git reset HEAD .
@@ -103,6 +115,29 @@ $ git reset HEAD .
 
 #### 直前コミットの修正
 ※リモートリポジトリにPushしたものはコミットしなおしはダメ！！
-```
+```bash
 $ git commit --amend
+```
+
+#### ブランチとマージ
+※ブランチはコミットを刺したポインタ
+```bash
+# ブランチ一覧 & 現在のブランチ表示
+$ git branch
+# ブランチ一覧表示(リモート含む)
+$ git branch -a
+
+# 新規ブランチ作成
+$ git branch <新ブランチ名>
+
+# ブランチの切替
+$ git checkout <既存のブランチ名>
+
+# ブランチの作成&切替
+$ git checkout -b <新ブランチ名>
+
+# マージ
+# ※作業中のブランチにマージすることに注意
+$ git merge <ブランチ名>
+$ git merge <リモート名/ブランチ名>
 ```
