@@ -128,10 +128,26 @@ $ git reset HEAD <ファイル名> or <ディレクトリ名>
 $ git reset HEAD .
 ```
 
-#### 直前コミットの修正
+#### コミットの修正
 ※リモートリポジトリにPushしたものはコミットしなおしはダメ！！
 ```bash
+# 直前のコミットをやり直す
 $ git commit --amend
+
+# 複数コミットをやり直す
+$ git rebase -i <コミットID>
+$ git rebase -i HEAD~3：3つ前まで修正
+# 1 コミットエディタが立ち上がり、変えたいとこをpickからeditに修正
+# 2 内容を修正し、git commit --amend
+# 3 git rebase --continueを打ち、次に移る
+
+# 並べ替え、削除
+# コミットエディタにて並び替えや削除を行う
+$ git rebase -i HEAD~数字
+
+# コミットをまとめる
+$ git rebase -i HEAD~数字
+# pickをsquashに修正　
 ```
 
 #### ブランチとマージ
@@ -188,3 +204,50 @@ $ git rebase <ブランチ名>
 # 5 featureブランチをマージ(git merge feature)
 ```
 ![alt text](img/マージvsリベース.png)
+
+#### タグ
+```bash
+# タグ一覧を表示
+$ git tag
+# パターン指定した一覧表示
+$ git tag -l "文字列"
+
+# タグの詳細表示
+$ git show [タグ名]
+
+# タグは2種類
+# 注釈付きタグ
+$ git tag -a "タグ名" -m "メッセージ"
+# 軽量タグ
+$ git tag [タグ名]
+
+# 昔のコミットにタグを付与
+$ git tag [タグ名] [コミットNo]
+
+# タグをリモートリポジトリに送信
+$ git push [] [タグ名]
+# タグをリモートリポジトリに一斉送信
+$ git push [リポジトリ名] --tags
+```
+
+#### 作業を一時避難
+```bash
+# 一時避難
+$ git stash
+# 避難のリスト表示
+$ git stash list
+
+# 避難を復元
+# popスタッシュリストからそのエントリを削除します。
+# applyはスタッシュリストから変更を削除しません。
+$ git stash pop
+# 最新の作業を復元
+$ git stash apply
+# ステージの状況も復元
+$ git stash apply --index
+
+# 最新の避難した作業を削除
+$ git stash drop
+# 避難した全作業を削除
+$ git stash clear
+```
